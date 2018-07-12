@@ -37,9 +37,6 @@ module.exports.run = async (bot, message, args) => {
 
     sql.get(`SELECT * FROM player_list WHERE userId = "${message.author.id}"`).then(player => {
       if (player && character != char) {
-        // sql.run(`UPDATE player_list SET char_class = ${character}, maxhp = ${hp}, maxmp = ${mp}, atk = ${atk}, def = ${def}, mat = ${mat}, mdf = ${mdf}, agi = ${agi}, luk = ${luk} WHERE userId = ${message.author.id}`);
-
-        //let p = player;
         let player_warning = new Discord.RichEmbed()
           .setAuthor(message.author.username)
           .setColor("#e20f0f")
@@ -90,9 +87,6 @@ module.exports.run = async (bot, message, args) => {
 
     }).catch(() => {
       console.error;
-      // sql.run("CREATE TABLE IF NOT EXISTS player_list (userId INTEGER, level INTEGER,char_class TEXT, maxhp INTEGER, maxmp INTEGER, atk INTEGER, def INTEGER, mat INTEGER, mdf INTEGER, agi INTEGER, luk INTEGER)").then(() => {
-      //   sql.run("INSERT INTO player_list (userId, level,char_class, maxhp , maxmp, atk, def, mat, mdf, agi, luk) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", [message.author.id, 1, character, hp, mp, atk, def, mat, mdf, agi, luk]);
-      // });
     });
 
   }).catch(() => {
