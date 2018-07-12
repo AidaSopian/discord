@@ -19,14 +19,3 @@ module.exports.run = async (bot, message, args) => {
 module.exports.help = {
   name: "profile"
 }
-
-// .addField("CLASS:", `${player.class}`)
-//         .addField("LEVEL:", `${player.level}`)
-//         .addField("HP   :", `${player.maxhp}`)
-//         .addField("MP   :", `${player.maxmp}`)
-//         .addField("ATK  :", `${player.atk}`)
-//         .addField("DEF  :", `${player.def}`)
-//         .addField("M ATK:", `${player.mat}`)
-//         .addField("M.DEF:", `${player.mdf}`)
-//         .addField("AGI  :", `${player.agi}`)
-//         .addField("LUK  :", `${player.luk}`)

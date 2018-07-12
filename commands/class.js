@@ -36,36 +36,42 @@ module.exports.run = async (bot, message, args) => {
     let luk = char_class.luk;
 
     sql.get(`SELECT * FROM player_list WHERE userId = "${message.author.id}"`).then(player => {
-      if (player) {
-      // let p = player;
-      let player_profile = new Discord.RichEmbed()
-        .setAuthor(message.author.username)
-        .setColor("#e20f0f")
-        .addField("Are you sure", `this will reset your level back to level 1`);
-      message.channel.send(player_profile)
-        .then(function () {
-          message.channel.awaitMessages(response => message.content, {
-            // max: 1,
-            time: 10000,
-            errors: ['time'],
-          })
-          .then((collected) => {
-            if (collected.first().content == 'yes') {
-              sql.run(`UPDATE player_list SET points = ${row.points + 1} WHERE userId = ${message.author.id}`);
+      if (player && character != char) {
+        // sql.run(`UPDATE player_list SET char_class = ${character}, maxhp = ${hp}, maxmp = ${mp}, atk = ${atk}, def = ${def}, mat = ${mat}, mdf = ${mdf}, agi = ${agi}, luk = ${luk} WHERE userId = ${message.author.id}`);
 
-              let player_profile = new Discord.RichEmbed()
-                .setAuthor(message.author.username)
-                .setColor("#85b3ca")
-                .addField("Alright!!", `You have change class to **${character}**!!`);
-              message.channel.send(player_profile);
-            }
-          })
-          .catch(function () {
-            message.channel.send('you took too long, nothing have been change');
+        //let p = player;
+        let player_warning = new Discord.RichEmbed()
+          .setAuthor(message.author.username)
+          .setColor("#e20f0f")
+          .addField("Are you sure", `this will reset your level back to level 1`);
+        message.channel.send(player_warning)
+          .then(function () {
+            message.channel.awaitMessages(response => message.content, {
+              max: 1,
+              time: 10000,
+              errors: ['time'],
+            })
+              .then((collected) => {
+                if (collected.first().content == 'yes') {
+                  sql.run(`UPDATE player_list SET level = 1, char_class = '${character}', maxhp = ${hp}, maxmp = ${mp}, atk = ${atk}, def = ${def}, mat = ${mat}, mdf = ${mdf}, agi = ${agi}, luk = ${luk} WHERE userId = ${message.author.id}`);
+
+                  let player_profile = new Discord.RichEmbed()
+                    .setAuthor(message.author.username)
+                    .setColor("#85b3ca")
+                    .addField("Alright!!", `You have change class to **${character}**!!`);
+                  message.channel.send(player_profile);
+                }
+
+                else return message.channel.send(`${message.author.username} you took too long, nothing have been change`);
+              })
+              .catch(function () {
+                message.channel.send(`${message.author.username} you took too long, nothing have been change`);
+              });
           });
-        });
-      } else {
-        sql.run("INSERT INTO player_list (userId, level,class, maxhp , maxmp, atk, def, mat, mdf, agi, luk) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", [message.author.id, 1, character, hp, mp, atk, def, mat, mdf, agi, luk]);
+      }
+
+      else if (!player) {
+        sql.run("INSERT INTO player_list (userId, level,char_class, maxhp , maxmp, atk, def, mat, mdf, agi, luk) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", [message.author.id, 1, character, hp, mp, atk, def, mat, mdf, agi, luk]);
 
         let player_profile = new Discord.RichEmbed()
           .setAuthor(message.author.username)
@@ -73,10 +79,19 @@ module.exports.run = async (bot, message, args) => {
           .addField("Congratulation!! you are now a ", `${char}`);
         message.channel.send(player_profile);
       }
+
+      else {
+        let player_profile = new Discord.RichEmbed()
+          .setAuthor(message.author.username)
+          .setColor("#85b3ca")
+          .addField("<.<", `Dude, you are already a **${character}**!!`);
+        message.channel.send(player_profile);
+      }
+
     }).catch(() => {
       console.error;
-      // sql.run("CREATE TABLE IF NOT EXISTS player_list (userId INTEGER, level INTEGER,class TEXT, maxhp INTEGER, maxmp INTEGER, atk INTEGER, def INTEGER, mat INTEGER, mdf INTEGER, agi INTEGER, luk INTEGER)").then(() => {
-      //   sql.run("INSERT INTO player_list (userId, level,class, maxhp , maxmp, atk, def, mat, mdf, agi, luk) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", [message.author.id, 1, character, hp, mp, atk, def, mat, mdf, agi, luk]);
+      // sql.run("CREATE TABLE IF NOT EXISTS player_list (userId INTEGER, level INTEGER,char_class TEXT, maxhp INTEGER, maxmp INTEGER, atk INTEGER, def INTEGER, mat INTEGER, mdf INTEGER, agi INTEGER, luk INTEGER)").then(() => {
+      //   sql.run("INSERT INTO player_list (userId, level,char_class, maxhp , maxmp, atk, def, mat, mdf, agi, luk) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", [message.author.id, 1, character, hp, mp, atk, def, mat, mdf, agi, luk]);
       // });
     });
 
