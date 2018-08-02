@@ -31,9 +31,12 @@ bot.on("message", async message => {
   if (message.author.bot) return;
   if (message.channel.type !== "text") return;
   if(!message.content.startsWith(prefix)) return;
-  if (message.content.startsWith(prefix + "marco")) {
-    message.channel.send("polo!");
-  }
+  if (message.content.startsWith(prefix + "ping")) {
+    message.channel.send("polo!");}
+  if (message.content.startsWith(prefix + "hi nev")) {
+    message.channel.send("HIII!");}
+  if (message.content.startsWith(prefix + "bye nev")) {
+    message.channel.send("Aww Goodbye :(");}
 
 
   //bot command handler code (do not touch)

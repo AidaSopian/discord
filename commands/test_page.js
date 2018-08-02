@@ -57,4 +57,30 @@ module.exports.help = {
 //     });
 //   }
 // });
+// if (player && player.char_class != char) {
+//   let player_warning = new Discord.RichEmbed()
+//     .setAuthor(message.author.username)
+//     .setColor("#e20f0f")
+//     .addField("Are you sure", `this will reset your level back to level 1`);
+//   message.channel.send(player_warning)
+//     .then(function () {
+//       message.channel.awaitMessages(response => message.content, {
+//         include: "yes",
+//         time: 10000,
+//         errors: [time],
+//       })
+//         .then((collected) => {
+//             sql.run(`UPDATE player_list SET level = 1, char_class = '${character}', maxhp = ${hp}, maxmp = ${mp}, atk = ${atk}, def = ${def}, mat = ${mat}, mdf = ${mdf}, agi = ${agi}, luk = ${luk} WHERE userId = ${message.author.id}`);
 
+//             let player_profile = new Discord.RichEmbed()
+//               .setAuthor(message.author.username)
+//               .setColor("#85b3ca")
+//               .addField("Alright!!", `You have change class to **${character}**!!`);
+//             message.channel.send(player_profile);
+
+//             })
+//         .catch(function () {
+//           message.channel.send(`${message.author.username} you took too long, nothing have been change`);
+//         });
+//     });
+// }

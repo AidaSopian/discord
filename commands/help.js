@@ -5,7 +5,7 @@ module.exports.run = async (bot, message, args) => {
 
   let player_profile = new Discord.RichEmbed()
     .setColor("#85b3ca")
-    .setDescription("$class, $class.characters, $class.tank (or select any character), $playerprofile");
+    .setDescription("$class, $class.characters, $class.tank (or select any character), $profile");
   message.channel.send(player_profile);
 }
 
