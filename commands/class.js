@@ -10,17 +10,17 @@ module.exports.run = async (bot, message, args) => {
     let player_profile = new Discord.RichEmbed()
       .setAuthor(message.author.username)
       .setColor("#85b3ca")
-      .setDescription("do it like this -> $class.white-mage");
+      .setDescription("do it like this -> $class.White-Mage");
     message.channel.send(player_profile);
   }
 
   let char = args;
 
-  if (char == 'char') {
+  if (char == 'characters') {
     let player_profile = new Discord.RichEmbed()
       .setAuthor(message.author.username)
       .setColor("#85b3ca")
-      .addField("pick your poison", "white-mage, black-mage, rougue, tank, warrior");
+      .addField("pick your poison", "White-Mage, Black-Mage, Rogue, Tank, Warrior");
     message.channel.send(player_profile);
   }
 
@@ -42,23 +42,23 @@ module.exports.run = async (bot, message, args) => {
           .setColor("#e20f0f")
           .addField("Are you sure", `this will reset your level back to level 1`);
         message.channel.send(player_warning)
-          .then(()=> {
+          .then(() => {
             message.channel.awaitMessages(response => response.content === "yes", {
               max: 1,
               time: 10000,
               errors: ['time'],
             })
               .then((collected) => {
-                  console.log(collected.first().content);
-                  sql.run(`UPDATE player_list SET level = 1, char_class = '${character}', maxhp = ${hp}, maxmp = ${mp}, atk = ${atk}, def = ${def}, mat = ${mat}, mdf = ${mdf}, agi = ${agi}, luk = ${luk} WHERE userId = ${message.author.id}`);
+                console.log(collected.first().content);
+                sql.run(`UPDATE player_list SET level = 1, char_class = '${character}', maxhp = ${hp}, maxmp = ${mp}, atk = ${atk}, def = ${def}, mat = ${mat}, mdf = ${mdf}, agi = ${agi}, luk = ${luk} WHERE userId = ${message.author.id}`);
 
-                  let player_profile = new Discord.RichEmbed()
-                    .setAuthor(message.author.username)
-                    .setColor("#85b3ca")
-                    .addField("Alright!!", `You have change class to **${character}**!!`);
-                  message.channel.send(player_profile);
+                let player_profile = new Discord.RichEmbed()
+                  .setAuthor(message.author.username)
+                  .setColor("#85b3ca")
+                  .addField("Alright!!", `You have change class to **${character}**!!`);
+                message.channel.send(player_profile);
 
-                  })
+              })
               .catch(function () {
                 message.channel.send(`${message.author.username} you took too long, nothing have been change`);
               });
