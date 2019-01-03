@@ -6,13 +6,13 @@ sql.open("./score.sqlite");
 module.exports.run = async (bot, message, args) => {
   //console.log("test works");
 
-  // if (!args[0]) {
-  //   let player_profile = new Discord.RichEmbed()
-  //     .setAuthor(message.author.username)
-  //     .setColor("#85b3ca")
-  //     .setDescription("do it like this -> $class.White-Mage");
-  //   message.channel.send(player_profile);
-  // }
+  if (!args[0]) {
+    let player_profile = new Discord.RichEmbed()
+      .setAuthor(message.author.username)
+      .setColor("#85b3ca")
+      .setDescription("Shop is empty");
+    message.channel.send(player_profile);
+  }
 
   sql.get(`SELECT Name FROM Weapons`).then(weapon => {
 

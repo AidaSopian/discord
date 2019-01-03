@@ -20,7 +20,7 @@ module.exports.run = async (bot, message, args) => {
     let player_profile = new Discord.RichEmbed()
       .setAuthor(message.author.username)
       .setColor("#85b3ca")
-      .addField("pick your poison", "White-Mage, Black-Mage, Rogue, Tank, Warrior");
+      .addField("pick your poison", "White-Mage, Black-Mage, Thief, Tank, Warrior");
     message.channel.send(player_profile);
   }
 
